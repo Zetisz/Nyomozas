@@ -23,9 +23,11 @@ namespace Nyomozas
             Console.WriteLine("Bizonyitek hozzaadva!");
         }
 
-        public void Torles(Evidence bizonyitek)
+        public void Torles(string bizAzonosito)
         {
-            if (bizonyitekok.Remove(bizonyitek))
+            Evidence biz = bizonyitekok.FirstOrDefault(b => b.Azonosito == bizAzonosito)!;
+
+            if (bizonyitekok.Remove(biz))
             {
                 Console.WriteLine("Bizonyitek torolve!");
             }

@@ -10,6 +10,7 @@ namespace Nyomozas
             bool fut2;
             int cmd = 0;
             CaseManager ugykezelo = new();
+            EvidenceManager bizkezelo = new();
             DataStore adattar = new();
 
             do
@@ -38,47 +39,68 @@ namespace Nyomozas
                         
                             switch (cmd)
                             {
-                            case 1:
-                                Console.WriteLine("\nUgyazonosito:");
-                                int ugyazonosito = int.Parse(Console.ReadLine()!);
+                                case 1:
+                                    string allapot = "Nincs megadva";
+                                    Console.WriteLine("\nUgyazonosito:");
+                                    int ugyazonosito = int.Parse(Console.ReadLine()!);
 
-                                Console.WriteLine("\nCim:");
-                                string cim = Console.ReadLine()!;
+                                    Console.WriteLine("\nCim:");
+                                    string cim = Console.ReadLine()!;
 
-                                Console.WriteLine("\nLeiras:");
-                                string leiras = Console.ReadLine()!;
+                                    Console.WriteLine("\nLeiras:");
+                                    string leiras = Console.ReadLine()!;
 
-                                Console.WriteLine("\nAllapot:");
-                                string allapot = Console.ReadLine()!;
+                                    Console.WriteLine("\nAllapot:");
+                                    System.Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
 
-                                Case ujUgy = new(ugyazonosito, cim, leiras, allapot);
-                                ugykezelo.Letrehozas(ujUgy);
-                                adattar.Ugyek.Add(ujUgy);
-                                break;
-
-                            case 2: // Ügy állapotának változtatása
-
-                                if (ugykezelo.Ugyek.Count() == 0)
+                                    do
                                     {
-                                        System.Console.WriteLine("Nincs ügy.");
-                                        break;
+                                        cmd = int.Parse(Console.ReadLine()!);
+                                    } while (cmd < 1 && cmd > 4);
+
+                                    switch (cmd)
+                                    {
+                                        case 1:
+                                        allapot = "Nyitott";
+                                            break;
+                                        case 2:
+                                        allapot = "Folyamatban";
+                                            break;
+                                        case 3:
+                                        allapot = "Lezárt";
+                                            break;
+                                        case 4:
+                                            break;
                                     }
 
-                                Console.WriteLine("\nÜgyazonosító:");
-                                cmd = int.Parse(Console.ReadLine()!);
-                                ugykezelo.CaseStatus(cmd);
-                                break;
+                                    Case ujUgy = new(ugyazonosito, cim, leiras, allapot);
+                                    ugykezelo.Letrehozas(ujUgy);
+                                    adattar.Ugyek.Add(ujUgy);
+                                    break;
 
-                            case 3: // Ügyek listázása
-                                ugykezelo.Listazas();
-                                break;
+                                case 2: // Ügy állapotának változtatása
 
-                            case 4:
-                                fut2 = false;
-                                break;
-                            }
-                        } while (fut2);
-                        break;
+                                    if (ugykezelo.Ugyek.Count == 0)
+                                        {
+                                            System.Console.WriteLine("Nincs ügy.");
+                                            break;
+                                        }
+
+                                    Console.WriteLine("\nÜgyazonosító:");
+                                    cmd = int.Parse(Console.ReadLine()!);
+                                    ugykezelo.CaseStatus(cmd);
+                                    break;
+
+                                case 3: // Ügyek listázása
+                                    ugykezelo.Listazas();
+                                    break;
+
+                                case 4:
+                                    fut2 = false;
+                                    break;
+                                }
+                            } while (fut2);
+                            break;
 
                     case 2:
 
@@ -94,7 +116,7 @@ namespace Nyomozas
                             switch (cmd)
                             {
                                 case 1:
-                                    if (ugykezelo.Ugyek.Count() == 0)
+                                    if (ugykezelo.Ugyek.Count == 0)
                                     {
                                         System.Console.WriteLine("Nincs ügy.");
                                         break;
@@ -133,7 +155,7 @@ namespace Nyomozas
                     case 3:
                         do
                         {
-                            Console.WriteLine("\n(1) Bizonyíték hozzadasa ugyhoz\n(2) Bizonyítékok listázása\n(3) Kilépés");
+                            Console.WriteLine("\n(1) Bizonyíték hozzadasa ugyhoz\n(2) Bizonyíték törlése\n(3) Bizonyítékok listázása\n(3) Kilépés");
                             do
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
@@ -143,8 +165,9 @@ namespace Nyomozas
                             switch (cmd)
                             {
                                 case 1:
+                                    string megbizhatosag = "Nincs megadva";
 
-                                    if (ugykezelo.Ugyek.Count() == 0)
+                                    if (ugykezelo.Ugyek.Count == 0)
                                     {
                                         System.Console.WriteLine("Nincs ügy.");
                                         break;
@@ -161,22 +184,58 @@ namespace Nyomozas
                                     Console.WriteLine("\nLeírás:");
                                     string bizonyitekLeiras = Console.ReadLine()!;
                                     Console.WriteLine("\nMegbízhatóság:");
-                                    string megbizhatosag = Console.ReadLine()!;
+                                    do
+                                    {
+                                        cmd = int.Parse(Console.ReadLine()!);
+                                    } while (cmd < 1 && cmd > 4);
+
+                                    switch (cmd)
+                                    {
+                                        case 1:
+                                        megbizhatosag = "Nyitott";
+                                            break;
+                                        case 2:
+                                        megbizhatosag = "Folyamatban";
+                                            break;
+                                        case 3:
+                                        megbizhatosag = "Lezárt";
+                                            break;
+                                        case 4:
+                                            break;
+                                    }
 
                                     Evidence bizonyitek = new(azonosito, tipus, bizonyitekLeiras, megbizhatosag);
                                     ugykezelo.BizonyitekHozzaadas(cmd, bizonyitek);
                                     adattar.Bizonyitekok.Add(bizonyitek);
 
                                     break;
-
+                                
                                 case 2:
+                                    if (adattar.Bizonyitekok.Count == 0)
+                                    {
+                                        System.Console.WriteLine("Nincsen törölhető bizonyíték.");
+                                        break;
+                                    }
+
+                                    foreach (Evidence e in adattar.Bizonyitekok)
+                                    {
+                                        System.Console.WriteLine(e);
+                                    }
+
+                                    Console.WriteLine("\nBizonyíték azonosítója:");
+                                    string bizID = Console.ReadLine()!;
+                                    bizkezelo.Torles(bizID);
+
+                                    break;
+
+                                case 3:
                                     foreach (Evidence e in adattar.Bizonyitekok)
                                     {
                                         System.Console.WriteLine(e);
                                     }
                                     break;
 
-                                case 3:
+                                case 4:
                                     fut2 = false;
                                     break;
                             }
