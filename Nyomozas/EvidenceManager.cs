@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nyomozas
+{
+    internal class EvidenceManager
+    {
+        private List<Evidence> bizonyitekok;
+
+        public EvidenceManager()
+        {
+            this.bizonyitekok = [];
+        }
+
+        internal List<Evidence> Bizonyitekok { get => bizonyitekok; set => bizonyitekok = value; }
+
+        public void Hozzadas(Evidence bizonyitek)
+        {
+            bizonyitekok.Add(bizonyitek);
+            Console.WriteLine("Bizonyitek hozzaadva!");
+        }
+
+        public void Torles(Evidence bizonyitek)
+        {
+            if (bizonyitekok.Remove(bizonyitek))
+            {
+                Console.WriteLine("Bizonyitek torolve!");
+            }
+            else
+            {
+                Console.WriteLine("A bizonyitek nem talalhato!");
+            }
+        }
+
+        public void Listazas()
+        {
+            if (bizonyitekok.Count > 0) 
+            {
+                foreach (Evidence b in bizonyitekok)
+                {
+                    Console.WriteLine(b);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nincs kilistazhato elem.");
+            }
+        }
+    }
+}
