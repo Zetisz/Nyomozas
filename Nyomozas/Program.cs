@@ -55,22 +55,7 @@ namespace Nyomozas
                                 adattar.Ugyek.Add(ujUgy);
                                 break;
 
-                            case 2: // Személy hozzáadása
-                                Console.WriteLine("Ügyazonosító:");
-                                int ugyIdSzemely = int.Parse(Console.ReadLine()!);
-                                Console.WriteLine("Név:");
-                                string nev = Console.ReadLine()!;
-                                Console.WriteLine("Életkor:");
-                                int eletkor = int.Parse(Console.ReadLine()!);
-                                Console.WriteLine("Megjegyzés:");
-                                string megjegyzes = Console.ReadLine()!;
-
-                                Person szemely = new(nev, eletkor, megjegyzes);
-                                ugykezelo.SzemelyHozzaadas(ugyIdSzemely, szemely);
-                                adattar.Szemelyek.Add(szemely);
-                                break;
-
-                            case 3: // Bizonyíték hozzáadása
+                            case 2: // Bizonyíték hozzáadása
                                 Console.WriteLine("Ügyazonosító:");
                                 cmd = int.Parse(Console.ReadLine()!);
                                 Console.WriteLine("Bizonyíték Azonosító:");
@@ -87,27 +72,66 @@ namespace Nyomozas
                                 adattar.Bizonyitekok.Add(bizonyitek);
                                 break;
 
-                            case 4: // Ügy állapotának változtatása
+                            case 3: // Ügy állapotának változtatása
                                 Console.WriteLine("Ügyazonosító:");
                                 cmd = int.Parse(Console.ReadLine()!);
                                 ugykezelo.CaseStatus(cmd);
                                 break;
 
-                            case 5: // Ügyek listázása
+                            case 4: // Ügyek listázása
                                 ugykezelo.Listazas();
                                 break;
 
-                            case 6:
+                            case 5:
                                 fut2 = false;
                                 break;
                             }
                         } while (fut2);
-                        
-                        
                         break;
+
                     case 2:
-                        Console.WriteLine();
+
+                        do
+                        {
+                            Console.WriteLine("(1) Személy hozzadasa ugyhoz\n(2) Ügy listázása\n(3) Kilépés");
+                            do
+                            {
+                                cmd = int.Parse(Console.ReadLine()!);
+                            }
+                            while (cmd < 1 && cmd > 3);
+
+                            switch (cmd)
+                            {
+                                case 1:
+                                    ugykezelo.Listazas();
+
+                                    Console.WriteLine("Ügyazonosító:");
+                                    int ugyIdSzemely = int.Parse(Console.ReadLine()!);
+                                    Console.WriteLine("Név:");
+                                    string nev = Console.ReadLine()!;
+                                    Console.WriteLine("Életkor:");
+                                    int eletkor = int.Parse(Console.ReadLine()!);
+                                    Console.WriteLine("Megjegyzés:");
+                                    string megjegyzes = Console.ReadLine()!;
+
+                                    Person szemely = new(nev, eletkor, megjegyzes);
+                                    ugykezelo.SzemelyHozzaadas(ugyIdSzemely, szemely);
+                                    adattar.Szemelyek.Add(szemely);
+                                    break;
+
+                                case 2:
+                                    foreach (Person p in adattar.Szemelyek)
+                                    {
+                                        System.Console.WriteLine(p);
+                                    }
+
+                                    break;
+                                case 3:
+                                    break;
+                            }
+                        } while (fut2);
                         break;
+                        
                     case 3:
                         Console.WriteLine();
                         break;
