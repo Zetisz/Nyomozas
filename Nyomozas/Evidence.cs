@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class Evidence
     {
@@ -28,7 +22,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.azonosito}: {this.tipus} -- {this.leiras} :: {this.megbizhatosag}";
+            return $"{azonosito}: {tipus} -- {leiras} :: {megbizhatosag}";
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class CaseManager
     {
@@ -13,7 +6,7 @@ namespace Nyomozas
 
         public CaseManager()
         {
-            this.ugyek = [];
+            ugyek = [];
         }
 
         internal List<Case> Ugyek { get => ugyek; set => ugyek = value; }
@@ -43,23 +36,23 @@ namespace Nyomozas
         {
             Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
 
-            int cmd = 0;
-            System.Console.WriteLine($"Az ügy aktuális státusza: {ugy.Allapot}");
-            System.Console.WriteLine("(1) Ügy állapotának változtatása\n(2) Kilépés");
+            int cmd;
+            Console.WriteLine($"Az ügy aktuális státusza: {ugy.Allapot}");
+            Console.WriteLine("(1) Ügy állapotának változtatása\n(2) Kilépés");
             do
             {
                 cmd = int.Parse(Console.ReadLine()!);
-            } while (cmd < 1 && cmd > 2);
+            } while (cmd < 1 || cmd > 2);
 
             switch (cmd)
             {
                 case 1:
-                    System.Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
+                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
 
                     do
                     {
                         cmd = int.Parse(Console.ReadLine()!);
-                    } while (cmd < 1 && cmd > 4);
+                    } while (cmd < 1 || cmd > 4);
 
                     switch (cmd)
                     {
@@ -87,30 +80,16 @@ namespace Nyomozas
         {
             Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
 
-            if (ugy != null)
-            {
-                ugy.Szemelyek.Add(szemely);
-                Console.WriteLine("Szemely hozzarendelve az ugyhoz!");
-            }
-            else
-            {
-                Console.WriteLine("Nem talalhato ilyen ugy!");
-            }
+            ugy.Szemelyek.Add(szemely);
+            Console.WriteLine("Szemely hozzarendelve az ugyhoz!");
         }
 
         public void BizonyitekHozzaadas(int ugyAzonosito, Evidence bizonyitek)
         {
             Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
 
-            if (ugy != null)
-            {
-                ugy.Bizonyitekok.Add(bizonyitek);
-                Console.WriteLine("Bizonyitek hozzarendelve az ugyhoz!");
-            }
-            else
-            {
-                Console.WriteLine("Nem talalhato ilyen ugy!");
-            }
+            ugy.Bizonyitekok.Add(bizonyitek);
+            Console.WriteLine("Bizonyitek hozzarendelve az ugyhoz!");
         }
     }
 }

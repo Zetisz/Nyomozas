@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class EvidenceManager
     {
@@ -12,7 +6,7 @@ namespace Nyomozas
 
         public EvidenceManager()
         {
-            this.bizonyitekok = [];
+            bizonyitekok = [];
         }
 
         internal List<Evidence> Bizonyitekok { get => bizonyitekok; set => bizonyitekok = value; }

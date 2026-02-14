@@ -15,10 +15,10 @@ namespace Nyomozas
 
         public DataStore()
         {
-            this.felhasznalok = [];
-            this.ugyek = [];
-            this.szemelyek = [];
-            this.bizonyitekok = [];
+            felhasznalok = [];
+            ugyek = [];
+            szemelyek = [];
+            bizonyitekok = [];
         }
 
         public List<User> Felhasznalok

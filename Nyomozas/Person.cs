@@ -25,7 +25,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.nev} - {this.eletkor} -- {this.megjegyzes}";
+            return $"{nev} - {eletkor} -- {megjegyzes}";
         }
     }
 }

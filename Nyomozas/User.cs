@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class User
     {
@@ -25,7 +19,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.nev} - {this.azonosito} -- {this.szerepkor}";
+            return $"{nev} - {azonosito} -- {szerepkor}";
         }
     }
 }

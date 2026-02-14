@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class Case
     {
@@ -21,8 +15,8 @@ namespace Nyomozas
             this.cim = cim;
             this.leiras = leiras;
             this.allapot = allapot;
-            this.szemelyek = [];
-            this.bizonyitekok = [];
+            szemelyek = [];
+            bizonyitekok = [];
         }
 
         public int Ugyazonosito { get => ugyazonosito; set => ugyazonosito = value; }
@@ -36,7 +30,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.ugyazonosito}: {this.cim} -- {this.leiras} :: {this.allapot}";
+            return $"{ugyazonosito}: {cim} -- {leiras} :: {allapot}";
         }
     }
 }

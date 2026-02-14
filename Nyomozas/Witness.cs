@@ -25,7 +25,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.szemely}\n\t{this.vallomas} ({this.datum})";
+            return $"{szemely}\n\t{vallomas} ({datum})";
         }
     }
 }

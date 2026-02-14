@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             bool fut = true;
             bool fut2;
-            int cmd = 0;
+            int cmd;
             CaseManager ugykezelo = new();
             EvidenceManager bizkezelo = new();
             DataStore adattar = new();
@@ -22,7 +20,7 @@ namespace Nyomozas
                 {
                     cmd = int.Parse(Console.ReadLine()!);
                 }
-                while (cmd < 1 && cmd > 6);
+                while (cmd < 1 || cmd > 6);
 
                 switch (cmd)
                 {
@@ -34,7 +32,7 @@ namespace Nyomozas
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
                             }
-                            while (cmd < 1 && cmd > 4);
+                            while (cmd < 1 || cmd > 4);
 
                         
                             switch (cmd)
@@ -51,12 +49,12 @@ namespace Nyomozas
                                     string leiras = Console.ReadLine()!;
 
                                     Console.WriteLine("\nAllapot:");
-                                    System.Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
+                                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
 
                                     do
                                     {
                                         cmd = int.Parse(Console.ReadLine()!);
-                                    } while (cmd < 1 && cmd > 4);
+                                    } while (cmd < 1 || cmd > 4);
 
                                     switch (cmd)
                                     {
@@ -82,7 +80,7 @@ namespace Nyomozas
 
                                     if (ugykezelo.Ugyek.Count == 0)
                                         {
-                                            System.Console.WriteLine("Nincs ügy.");
+                                            Console.WriteLine("Nincs ügy.");
                                             break;
                                         }
 
@@ -111,14 +109,14 @@ namespace Nyomozas
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
                             }
-                            while (cmd < 1 && cmd > 3);
+                            while (cmd < 1 || cmd > 3);
 
                             switch (cmd)
                             {
                                 case 1:
                                     if (ugykezelo.Ugyek.Count == 0)
                                     {
-                                        System.Console.WriteLine("Nincs ügy.");
+                                        Console.WriteLine("Nincs ügy.");
                                         break;
                                     }
 
@@ -141,7 +139,7 @@ namespace Nyomozas
                                 case 2:
                                     foreach (Person p in adattar.Szemelyek)
                                     {
-                                        System.Console.WriteLine(p);
+                                        Console.WriteLine(p);
                                     }
                                     break;
 
@@ -160,7 +158,7 @@ namespace Nyomozas
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
                             }
-                            while (cmd < 1 && cmd > 3);
+                            while (cmd < 1 || cmd > 4);
 
                             switch (cmd)
                             {
@@ -169,14 +167,14 @@ namespace Nyomozas
 
                                     if (ugykezelo.Ugyek.Count == 0)
                                     {
-                                        System.Console.WriteLine("Nincs ügy.");
+                                        Console.WriteLine("Nincs ügy.");
                                         break;
                                     }
 
                                     ugykezelo.Listazas();
 
                                     Console.WriteLine("\nÜgyazonosító:");
-                                    cmd = int.Parse(Console.ReadLine()!);
+                                    int ugyIdBiz = int.Parse(Console.ReadLine()!);
                                     Console.WriteLine("\nBizonyíték Azonosító:");
                                     string azonosito = Console.ReadLine()!;
                                     Console.WriteLine("\nTípus:");
@@ -187,7 +185,7 @@ namespace Nyomozas
                                     do
                                     {
                                         cmd = int.Parse(Console.ReadLine()!);
-                                    } while (cmd < 1 && cmd > 4);
+                                    } while (cmd < 1 || cmd > 4);
 
                                     switch (cmd)
                                     {
@@ -205,7 +203,7 @@ namespace Nyomozas
                                     }
 
                                     Evidence bizonyitek = new(azonosito, tipus, bizonyitekLeiras, megbizhatosag);
-                                    ugykezelo.BizonyitekHozzaadas(cmd, bizonyitek);
+                                    ugykezelo.BizonyitekHozzaadas(ugyIdBiz, bizonyitek);
                                     adattar.Bizonyitekok.Add(bizonyitek);
 
                                     break;
@@ -213,25 +211,25 @@ namespace Nyomozas
                                 case 2:
                                     if (adattar.Bizonyitekok.Count == 0)
                                     {
-                                        System.Console.WriteLine("Nincsen törölhető bizonyíték.");
+                                        Console.WriteLine("Nincsen törölhető bizonyíték.");
                                         break;
                                     }
 
                                     foreach (Evidence e in adattar.Bizonyitekok)
                                     {
-                                        System.Console.WriteLine(e);
+                                        Console.WriteLine(e);
                                     }
 
                                     Console.WriteLine("\nBizonyíték azonosítója:");
-                                    string bizID = Console.ReadLine()!;
-                                    bizkezelo.Torles(bizID);
+                                    string bizId = Console.ReadLine()!;
+                                    bizkezelo.Torles(bizId);
 
                                     break;
 
                                 case 3:
                                     foreach (Evidence e in adattar.Bizonyitekok)
                                     {
-                                        System.Console.WriteLine(e);
+                                        Console.WriteLine(e);
                                     }
                                     break;
 

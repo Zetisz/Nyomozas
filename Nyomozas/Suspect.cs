@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class Suspect
     {
@@ -25,7 +19,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.szemely}\n\t{this.szint} -- {this.statusz}";
+            return $"{szemely}\n\t{szint} -- {statusz}";
         }
     }
 }

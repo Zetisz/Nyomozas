@@ -22,7 +22,7 @@ namespace Nyomozas
 
         public override string ToString()
         {
-            return $"{this.datum} -- {this.leiras}";
+            return $"{datum} -- {leiras}";
         }
     }
 }
