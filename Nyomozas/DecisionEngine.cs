@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class DecisionEngine
     {
@@ -31,7 +25,7 @@ namespace Nyomozas
             if (osszPont >= kuszobertek)
             {
                 Console.WriteLine(
-                    $"Figyelemm: {szemely.Nev} elerte a kuszoberteket!"
+                    $"Figyelem: {szemely.Nev} elerte a kuszoberteket!"
                 );
             }
         }

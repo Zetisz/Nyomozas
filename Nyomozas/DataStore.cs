@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nyomozas
+﻿namespace Nyomozas
 {
     internal class DataStore
     {
@@ -12,6 +6,8 @@ namespace Nyomozas
         private List<Case> ugyek;
         private List<Person> szemelyek;
         private List<Evidence> bizonyitekok;
+        private List<Suspect> gyanusitottak;
+        private List<Witness> tanuk;
 
         public DataStore()
         {
@@ -19,6 +15,8 @@ namespace Nyomozas
             ugyek = [];
             szemelyek = [];
             bizonyitekok = [];
+            gyanusitottak = [];
+            tanuk = [];
         }
 
         public List<User> Felhasznalok
@@ -39,6 +37,16 @@ namespace Nyomozas
         public List<Evidence> Bizonyitekok
         {
             get { return bizonyitekok; }
+        }
+
+        public List<Suspect> Gyanusitottak
+        {
+            get { return gyanusitottak; }
+        }
+
+        public List<Witness> Tanuk
+        {
+            get { return tanuk; }
         }
     }
 }

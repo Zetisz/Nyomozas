@@ -32,6 +32,31 @@
             }
         }
 
+        public Person SzemelyekValasztas(int ugyAzonosito)
+        {
+            int cmd;
+            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
+            Console.WriteLine("Ügy személyei");
+            for (int i = 0; i < ugy.Szemelyek.Count; i++)
+            {
+                Console.WriteLine($"({i + 1}.) {ugy.Szemelyek[i]}");
+            }
+
+            do
+            {
+                cmd = int.Parse(Console.ReadLine()!);
+            } while (cmd < 1 || ugy.Szemelyek.Count < cmd);
+            
+            return ugy.Szemelyek[cmd - 1];
+        }
+        
+        public List<Evidence> UgyBizonyitekai(int ugyAzonosito)
+        {
+            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
+            
+            return ugy.Bizonyitekok;
+        }
+
         public void CaseStatus(int ugyAzonosito)
         {
             Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
@@ -47,7 +72,7 @@
             switch (cmd)
             {
                 case 1:
-                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
+                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt\n(4) Kilépés");
 
                     do
                     {

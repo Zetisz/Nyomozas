@@ -9,8 +9,6 @@
             bizonyitekok = [];
         }
 
-        internal List<Evidence> Bizonyitekok { get => bizonyitekok; set => bizonyitekok = value; }
-
         public void Hozzadas(Evidence bizonyitek)
         {
             bizonyitekok.Add(bizonyitek);

@@ -3,17 +3,17 @@
     internal class Suspect
     {
         private Person szemely;
-        private string szint;
+        private int szint;
         private string statusz;
 
-        public Suspect(Person szemely, string szint, string statusz)
+        public Suspect(Person szemely, int szint, string statusz)
         {
             this.szemely = szemely;
             this.szint = szint;
             this.statusz = statusz;
         }
 
-        public string Szint { get => szint; set => szint = value; }
+        public int Szint { get => szint; set => szint = value; }
         public string Statusz { get => statusz; set => statusz = value; }
         internal Person Szemely { get => szemely; set => szemely = value; }
 

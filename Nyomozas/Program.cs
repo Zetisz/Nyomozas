@@ -10,6 +10,7 @@
             CaseManager ugykezelo = new();
             EvidenceManager bizkezelo = new();
             DataStore adattar = new();
+            DecisionEngine donteshozo = new();
 
             do
             {
@@ -27,7 +28,7 @@
                     case 1:
                         do
                         {
-                            Console.WriteLine("\n1. Ugy letrehozasa\n2. Ügy állapotának változtatása\n3. Ugyek listazasa\n4. Kilépés");
+                            Console.WriteLine("\n1. Ügy letrehozasa\n2. Ügy állapotának változtatása\n3. Ügyek listazasa\n4. Kilépés");
                             do
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
@@ -49,12 +50,12 @@
                                     string leiras = Console.ReadLine()!;
 
                                     Console.WriteLine("\nAllapot:");
-                                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt (4) Kilépés");
+                                    Console.WriteLine("(1) Nyitott\n(2) Folyamatban\n(3) Lezárt");
 
                                     do
                                     {
                                         cmd = int.Parse(Console.ReadLine()!);
-                                    } while (cmd < 1 || cmd > 4);
+                                    } while (cmd < 1 || cmd > 3);
 
                                     switch (cmd)
                                     {
@@ -66,8 +67,6 @@
                                             break;
                                         case 3:
                                         allapot = "Lezárt";
-                                            break;
-                                        case 4:
                                             break;
                                     }
 
@@ -114,6 +113,7 @@
                             switch (cmd)
                             {
                                 case 1:
+                                    string fajta = "Nincs megadva";
                                     if (ugykezelo.Ugyek.Count == 0)
                                     {
                                         Console.WriteLine("Nincs ügy.");
@@ -130,10 +130,76 @@
                                     int eletkor = int.Parse(Console.ReadLine()!);
                                     Console.WriteLine("\nMegjegyzés:");
                                     string megjegyzes = Console.ReadLine()!;
+                                    
+                                    Console.WriteLine("(1) Gyanusított (2) Tanú (3) Kihagyás");
+                                    
+                                    do
+                                    {
+                                        cmd = int.Parse(Console.ReadLine()!);
+                                    } while (cmd < 1 || cmd > 3);
 
+                                    switch (cmd)
+                                    {
+                                        case 1:
+                                            fajta = "gyanusitott";
+                                            break;
+                                        case 2:
+                                            fajta = "tanu";
+                                            break;
+                                        case 3:
+                                            break;
+                                    }
+                                    
                                     Person szemely = new(nev, eletkor, megjegyzes);
                                     ugykezelo.SzemelyHozzaadas(ugyIdSzemely, szemely);
                                     adattar.Szemelyek.Add(szemely);
+
+                                    if (fajta == "gyanusitott")
+                                    {
+                                        int szint;
+                                        string statusz = "Nincs megadva";
+                                        Console.WriteLine("Gyanusítottsági szint (0-100)");
+                                        do
+                                        {
+                                            szint = int.Parse(Console.ReadLine()!);
+                                        } while (szint < 0 || szint > 100);
+                                        
+                                        Console.WriteLine("(1) Szabad (2) Megfigyelt (3) Őrizetben (4) Kihagyás");
+                                    
+                                        do
+                                        {
+                                            cmd = int.Parse(Console.ReadLine()!);
+                                        } while (cmd < 1 || cmd > 4);
+
+                                        switch (cmd)
+                                        {
+                                            case 1:
+                                                statusz = "Szabad";
+                                                break;
+                                            case 2:
+                                                statusz = "Megfigyelt";
+                                                break;
+                                            case 3:
+                                                statusz = "Őrizetben";
+                                                break;
+                                            case 4:
+                                                break;
+                                        }
+                                        
+                                        Suspect s = new(szemely, szint, statusz);
+                                        adattar.Gyanusitottak.Add(s);
+                                    }
+                                    else if (fajta == "tanu")
+                                    {
+                                        Console.WriteLine("Vallomás:");
+                                        string vallomas = Console.ReadLine()!;
+                                        Console.WriteLine("Dátum:");
+                                        string datum = Console.ReadLine()!;
+                                        
+                                        Witness w = new(szemely, vallomas, datum);
+                                        adattar.Tanuk.Add(w);
+                                    }
+                                    
                                     break;
 
                                 case 2:
@@ -153,7 +219,7 @@
                     case 3:
                         do
                         {
-                            Console.WriteLine("\n(1) Bizonyíték hozzadasa ugyhoz\n(2) Bizonyíték törlése\n(3) Bizonyítékok listázása\n(3) Kilépés");
+                            Console.WriteLine("\n(1) Bizonyíték hozzadasa ugyhoz\n(2) Bizonyíték törlése\n(3) Bizonyítékok listázása\n(4) Kilépés");
                             do
                             {
                                 cmd = int.Parse(Console.ReadLine()!);
@@ -182,28 +248,28 @@
                                     Console.WriteLine("\nLeírás:");
                                     string bizonyitekLeiras = Console.ReadLine()!;
                                     Console.WriteLine("\nMegbízhatóság:");
+                                    Console.WriteLine("(1) Alacsony\n(2) Közepes\n(3) Magas");
                                     do
                                     {
                                         cmd = int.Parse(Console.ReadLine()!);
-                                    } while (cmd < 1 || cmd > 4);
+                                    } while (cmd < 1 || cmd > 3);
 
                                     switch (cmd)
                                     {
                                         case 1:
-                                        megbizhatosag = "Nyitott";
+                                        megbizhatosag = "Alacsony";
                                             break;
                                         case 2:
-                                        megbizhatosag = "Folyamatban";
+                                        megbizhatosag = "Közepes";
                                             break;
                                         case 3:
-                                        megbizhatosag = "Lezárt";
-                                            break;
-                                        case 4:
+                                        megbizhatosag = "Magas";
                                             break;
                                     }
 
                                     Evidence bizonyitek = new(azonosito, tipus, bizonyitekLeiras, megbizhatosag);
                                     ugykezelo.BizonyitekHozzaadas(ugyIdBiz, bizonyitek);
+                                    bizkezelo.Hozzadas(bizonyitek);
                                     adattar.Bizonyitekok.Add(bizonyitek);
 
                                     break;
@@ -215,10 +281,7 @@
                                         break;
                                     }
 
-                                    foreach (Evidence e in adattar.Bizonyitekok)
-                                    {
-                                        Console.WriteLine(e);
-                                    }
+                                    bizkezelo.Listazas();  
 
                                     Console.WriteLine("\nBizonyíték azonosítója:");
                                     string bizId = Console.ReadLine()!;
@@ -227,10 +290,7 @@
                                     break;
 
                                 case 3:
-                                    foreach (Evidence e in adattar.Bizonyitekok)
-                                    {
-                                        Console.WriteLine(e);
-                                    }
+                                    bizkezelo.Listazas();
                                     break;
 
                                 case 4:
@@ -238,14 +298,20 @@
                                     break;
                             }
                         } while (fut2);
-                        break;
 
-                        
+                        break;
+                    
                     case 4:
                         Console.WriteLine();
                         break;
                     case 5:
-                        Console.WriteLine();
+                        ugykezelo.Listazas();
+                        Console.WriteLine("\nÜgyazonosító:");
+                        int ugyId = int.Parse(Console.ReadLine()!);
+                        Person valszemely = ugykezelo.SzemelyekValasztas(ugyId);
+                        List<Evidence> ugybiz = ugykezelo.UgyBizonyitekai(ugyId);
+                        
+                        donteshozo.Ertekeles(valszemely, ugybiz);
                         break;
                     case 6:
                         fut = false;
