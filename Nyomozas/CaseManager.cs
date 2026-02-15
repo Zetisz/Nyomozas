@@ -32,14 +32,29 @@
             }
         }
 
-        public Person SzemelyekValasztas(int ugyAzonosito)
+        public Case Ugyvalasztas()
+        {
+            int ugy;
+            for (int i = 0; i < ugyek.Count; i++)
+            {
+                Console.WriteLine($"({i + 1}) {ugyek[i]}");
+            }
+            Console.WriteLine("\nÜgy sorszáma:");
+            do
+            {
+                ugy = int.Parse(Console.ReadLine()!);
+            } while (ugy < 1 || ugyek.Count < ugy);
+            
+            return ugyek[ugy - 1];
+        }
+
+        public Person SzemelyekValasztas(Case ugy)
         {
             int cmd;
-            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
             Console.WriteLine("Ügy személyei");
             for (int i = 0; i < ugy.Szemelyek.Count; i++)
             {
-                Console.WriteLine($"({i + 1}.) {ugy.Szemelyek[i]}");
+                Console.WriteLine($"({i + 1}) {ugy.Szemelyek[i]}");
             }
 
             do
@@ -50,17 +65,13 @@
             return ugy.Szemelyek[cmd - 1];
         }
         
-        public List<Evidence> UgyBizonyitekai(int ugyAzonosito)
+        public List<Evidence> UgyBizonyitekai(Case ugy)
         {
-            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
-            
             return ugy.Bizonyitekok;
         }
 
-        public void CaseStatus(int ugyAzonosito)
+        public void CaseStatus(Case ugy)
         {
-            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
-
             int cmd;
             Console.WriteLine($"Az ügy aktuális státusza: {ugy.Allapot}");
             Console.WriteLine("(1) Ügy állapotának változtatása\n(2) Kilépés");
@@ -101,18 +112,14 @@
         }
 
         // Személy hozzárendelése ügyhöz
-        public void SzemelyHozzaadas(int ugyAzonosito, Person szemely)
+        public void SzemelyHozzaadas(Case ugy, Person szemely)
         {
-            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
-
-            ugy.Szemelyek.Add(szemely);
-            Console.WriteLine("Szemely hozzarendelve az ugyhoz!");
+           ugy.Szemelyek.Add(szemely);
+           Console.WriteLine("Szemely hozzarendelve az ugyhoz!");
         }
 
-        public void BizonyitekHozzaadas(int ugyAzonosito, Evidence bizonyitek)
+        public void BizonyitekHozzaadas(Case ugy, Evidence bizonyitek)
         {
-            Case ugy = ugyek.FirstOrDefault(u => u.Ugyazonosito == ugyAzonosito)!;
-
             ugy.Bizonyitekok.Add(bizonyitek);
             Console.WriteLine("Bizonyitek hozzarendelve az ugyhoz!");
         }

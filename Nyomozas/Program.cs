@@ -83,12 +83,16 @@
                                             break;
                                         }
 
-                                    Console.WriteLine("\nÜgyazonosító:");
-                                    cmd = int.Parse(Console.ReadLine()!);
-                                    ugykezelo.CaseStatus(cmd);
+                                    Case ugyA = ugykezelo.Ugyvalasztas();
+                                    ugykezelo.CaseStatus(ugyA);
                                     break;
 
                                 case 3: // Ügyek listázása
+                                    if (ugykezelo.Ugyek.Count == 0)
+                                    {
+                                        Console.WriteLine("Nincs ügy.");
+                                        break;
+                                    }
                                     ugykezelo.Listazas();
                                     break;
 
@@ -120,10 +124,7 @@
                                         break;
                                     }
 
-                                    ugykezelo.Listazas();
-
-                                    Console.WriteLine("\nÜgyazonosító:");
-                                    int ugyIdSzemely = int.Parse(Console.ReadLine()!);
+                                    Case ugySzemely = ugykezelo.Ugyvalasztas();
                                     Console.WriteLine("\nNév:");
                                     string nev = Console.ReadLine()!;
                                     Console.WriteLine("\nÉletkor:");
@@ -131,7 +132,7 @@
                                     Console.WriteLine("\nMegjegyzés:");
                                     string megjegyzes = Console.ReadLine()!;
                                     
-                                    Console.WriteLine("(1) Gyanusított (2) Tanú (3) Kihagyás");
+                                    Console.WriteLine("(1) Gyanusított (2) Tanú");
                                     
                                     do
                                     {
@@ -146,12 +147,10 @@
                                         case 2:
                                             fajta = "tanu";
                                             break;
-                                        case 3:
-                                            break;
                                     }
                                     
                                     Person szemely = new(nev, eletkor, megjegyzes);
-                                    ugykezelo.SzemelyHozzaadas(ugyIdSzemely, szemely);
+                                    ugykezelo.SzemelyHozzaadas(ugySzemely, szemely);
                                     adattar.Szemelyek.Add(szemely);
 
                                     if (fajta == "gyanusitott")
@@ -203,10 +202,42 @@
                                     break;
 
                                 case 2:
-                                    foreach (Person p in adattar.Szemelyek)
+                                    if (adattar.Szemelyek.Count == 0)
                                     {
-                                        Console.WriteLine(p);
+                                        Console.WriteLine("Nincs listázható személy.");
+                                        break;
+                                    } 
+                                    if (adattar.Gyanusitottak.Count == 0 && adattar.Tanuk.Count != 0)
+                                    {
+                                        Console.WriteLine("Nincs megjeleníthető gyanúsított.\nTanúk:");
+                                        foreach (var tanu in adattar.Tanuk)
+                                        {
+                                            Console.WriteLine(tanu);
+                                        }
                                     }
+                                    else if (adattar.Gyanusitottak.Count != 0 && adattar.Tanuk.Count == 0)
+                                    {
+                                        Console.WriteLine("Nincs megjeleníthető tanu.\nGyanusítottak:");
+                                        foreach (var gyan in adattar.Gyanusitottak)
+                                        {
+                                            Console.WriteLine(gyan);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Gyanúsítottak:");
+                                        foreach (var gyan in adattar.Gyanusitottak)
+                                        {
+                                            Console.WriteLine(gyan);
+                                        }
+
+                                        Console.WriteLine("Tanuk:");
+                                        foreach (var tanu in adattar.Tanuk)
+                                        {
+                                            Console.WriteLine(tanu);
+                                        }
+                                    }
+                                    
                                     break;
 
                                 case 3:
@@ -237,10 +268,7 @@
                                         break;
                                     }
 
-                                    ugykezelo.Listazas();
-
-                                    Console.WriteLine("\nÜgyazonosító:");
-                                    int ugyIdBiz = int.Parse(Console.ReadLine()!);
+                                    Case ugy = ugykezelo.Ugyvalasztas();
                                     Console.WriteLine("\nBizonyíték Azonosító:");
                                     string azonosito = Console.ReadLine()!;
                                     Console.WriteLine("\nTípus:");
@@ -268,25 +296,22 @@
                                     }
 
                                     Evidence bizonyitek = new(azonosito, tipus, bizonyitekLeiras, megbizhatosag);
-                                    ugykezelo.BizonyitekHozzaadas(ugyIdBiz, bizonyitek);
+                                    ugykezelo.BizonyitekHozzaadas(ugy, bizonyitek);
                                     bizkezelo.Hozzadas(bizonyitek);
                                     adattar.Bizonyitekok.Add(bizonyitek);
 
                                     break;
                                 
                                 case 2:
-                                    if (adattar.Bizonyitekok.Count == 0)
+                                    Case ugybizc = ugykezelo.Ugyvalasztas();
+                                    
+                                    if (ugybizc.Bizonyitekok.Count == 0)
                                     {
                                         Console.WriteLine("Nincsen törölhető bizonyíték.");
                                         break;
                                     }
-
-                                    bizkezelo.Listazas();  
-
-                                    Console.WriteLine("\nBizonyíték azonosítója:");
-                                    string bizId = Console.ReadLine()!;
-                                    bizkezelo.Torles(bizId);
-
+                                    
+                                    bizkezelo.Torles(ugybizc);
                                     break;
 
                                 case 3:
@@ -305,11 +330,28 @@
                         Console.WriteLine();
                         break;
                     case 5:
-                        ugykezelo.Listazas();
-                        Console.WriteLine("\nÜgyazonosító:");
-                        int ugyId = int.Parse(Console.ReadLine()!);
-                        Person valszemely = ugykezelo.SzemelyekValasztas(ugyId);
-                        List<Evidence> ugybiz = ugykezelo.UgyBizonyitekai(ugyId);
+                        if (ugykezelo.Ugyek.Count == 0)
+                        {
+                            Console.WriteLine("Nincs ügy.");
+                            break;
+                        }
+                        Case ugyd = ugykezelo.Ugyvalasztas();
+                        
+                        if (ugyd.Szemelyek.Count == 0)
+                        {
+                            Console.WriteLine("Nincs személy az ügyhöz kötve.");
+                            break;
+                        }
+                        
+                        Person valszemely = ugykezelo.SzemelyekValasztas(ugyd);
+                        
+                        if (ugyd.Bizonyitekok.Count == 0)
+                        {
+                            Console.WriteLine("Nincs bizonyíték az ügyhöz kötve.");
+                            break;
+                        }
+                        
+                        List<Evidence> ugybiz = ugykezelo.UgyBizonyitekai(ugyd);
                         
                         donteshozo.Ertekeles(valszemely, ugybiz);
                         break;

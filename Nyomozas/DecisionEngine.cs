@@ -17,9 +17,12 @@
             {
                 osszPont += MegbizhatosagPont(b.Megbizhatosag);
             }
+            osszPont /= bizonyitekok.Count;
 
+            Console.WriteLine($"{szemely.Nev} megbíhatósági szintje: /100");
+            
             Console.WriteLine(
-                $"{szemely.Nev} osszesitett gyanusitottsagi szintje: {osszPont}"
+                $"Döntés megbíhatósága: {osszPont}/10"
             );
 
             if (osszPont >= kuszobertek)
@@ -35,13 +38,13 @@
             switch (megbizhatosag.ToLower())
             {
                 case "alacsony":
-                    return 1;
+                    return 2;
                 case "kozepes":
-                    return 3;
-                case "magas":
                     return 5;
+                case "magas":
+                    return 10;
                 default:
-                    return 0;
+                    return 1;
             }
         }
     }
