@@ -8,6 +8,7 @@
         private List<Evidence> bizonyitekok;
         private List<Suspect> gyanusitottak;
         private List<Witness> tanuk;
+        private List<TimelineEvent> idovonal;
 
         public DataStore()
         {
@@ -17,6 +18,7 @@
             bizonyitekok = [];
             gyanusitottak = [];
             tanuk = [];
+            idovonal = [];
         }
 
         public List<User> Felhasznalok
@@ -48,5 +50,11 @@
         {
             get { return tanuk; }
         }
+        
+        public List<TimelineEvent> Idovonal
+        {
+            get { return idovonal; }
+        }
+
     }
 }

@@ -26,7 +26,7 @@
                 osszPont += MegbizhatosagPont(b.Megbizhatosag);
             }
             
-
+            // megvaltozik tanu szerint
             if (tanulista.Count > 0)
             {
                 for (int i = 0; i <= tanulista.Count; i++)
@@ -54,6 +54,8 @@
                     $"Figyelem: {gyanusitott.Szemely.Nev} elerte a kuszoberteket!"
                 );
             }
+            
+            adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Gyanusitott {gyanusitott.Szemely.Nev} elemezve."));
         }
 
         public bool GyanusitottakLista(Case ugy)

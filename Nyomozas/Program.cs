@@ -73,6 +73,7 @@
                                     Case ujUgy = new(ugyazonosito, cim, leiras, allapot);
                                     ugykezelo.Letrehozas(ujUgy);
                                     adattar.Ugyek.Add(ujUgy);
+                                    adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Ugy {ugyazonosito} letrehozva."));
                                     break;
 
                                 case 2: // Ügy állapotának változtatása
@@ -85,6 +86,7 @@
 
                                     Case ugyA = ugykezelo.Ugyvalasztas();
                                     ugykezelo.CaseStatus(ugyA);
+                                    adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Ugy {ugyA.Ugyazonosito} allapota megvaltoztatva."));
                                     break;
 
                                 case 3: // Ügyek listázása
@@ -199,6 +201,7 @@
                                         adattar.Tanuk.Add(w);
                                     }
                                     
+                                    adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"{nev} szemely letrehozasa. ({ugySzemely.Ugyazonosito} ugyhoz hozzarendelve)"));
                                     break;
 
                                 case 2:
@@ -299,7 +302,7 @@
                                     ugykezelo.BizonyitekHozzaadas(ugy, bizonyitek);
                                     bizkezelo.Hozzadas(bizonyitek);
                                     adattar.Bizonyitekok.Add(bizonyitek);
-
+                                    adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Bizonyitek {azonosito} letrehozva. ({ugy.Ugyazonosito} ugyhoz hozzarendelve)"));
                                     break;
                                 
                                 case 2:
@@ -312,6 +315,7 @@
                                     }
                                     
                                     bizkezelo.Torles(ugybizc);
+                                    adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Bizonyitek torolve (Ugyazonosito: {ugybizc.Ugyazonosito})"));
                                     break;
 
                                 case 3:
@@ -323,12 +327,21 @@
                                     break;
                             }
                         } while (fut2);
-
                         break;
                     
                     case 4:
+                        if (adattar.Idovonal.Count == 0)
+                        {
+                            Console.WriteLine("Az idovonal ures.");
+                            break;
+                        }
                         Console.WriteLine();
+                        foreach (var e in adattar.Idovonal)
+                        {
+                            Console.WriteLine(e);
+                        }
                         break;
+
                     case 5:
                         if (ugykezelo.Ugyek.Count == 0)
                         {
@@ -360,7 +373,9 @@
                         
                         List<Evidence> ugybiz = ugykezelo.UgyBizonyitekai(ugyd);
                         donteshozo.Ertekeles(ugybiz);
+                        adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Ugy {ugyd.Ugyazonosito} elemezve."));
                         break;
+                    
                     case 6:
                         fut = false;
                         break;
