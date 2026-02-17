@@ -47,23 +47,6 @@
             
             return ugyek[ugy - 1];
         }
-
-        public Person SzemelyekValasztas(Case ugy)
-        {
-            int cmd;
-            Console.WriteLine("Ügy személyei");
-            for (int i = 0; i < ugy.Szemelyek.Count; i++)
-            {
-                Console.WriteLine($"({i + 1}) {ugy.Szemelyek[i]}");
-            }
-
-            do
-            {
-                cmd = int.Parse(Console.ReadLine()!);
-            } while (cmd < 1 || ugy.Szemelyek.Count < cmd);
-            
-            return ugy.Szemelyek[cmd - 1];
-        }
         
         public List<Evidence> UgyBizonyitekai(Case ugy)
         {

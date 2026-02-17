@@ -14,12 +14,11 @@
         }
 
         public int Szint { get => szint; set => szint = value; }
-        public string Statusz { get => statusz; set => statusz = value; }
         internal Person Szemely { get => szemely; set => szemely = value; }
 
         public override string ToString()
         {
-            return $"{szemely}\n\t{szint} -- {statusz}";
+            return $"{szemely}, megbizhatosag: {szint}/100; {statusz}";
         }
     }
 }

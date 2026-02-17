@@ -10,7 +10,7 @@
             CaseManager ugykezelo = new();
             EvidenceManager bizkezelo = new();
             DataStore adattar = new();
-            DecisionEngine donteshozo = new();
+            DecisionEngine donteshozo = new(adattar);
 
             do
             {
@@ -156,7 +156,7 @@
                                     if (fajta == "gyanusitott")
                                     {
                                         int szint;
-                                        string statusz = "Nincs megadva";
+                                        string statusz = "";
                                         Console.WriteLine("Gyanusítottsági szint (0-100)");
                                         do
                                         {
@@ -335,16 +335,23 @@
                             Console.WriteLine("Nincs ügy.");
                             break;
                         }
+
                         Case ugyd = ugykezelo.Ugyvalasztas();
-                        
+
                         if (ugyd.Szemelyek.Count == 0)
                         {
                             Console.WriteLine("Nincs személy az ügyhöz kötve.");
                             break;
                         }
                         
-                        Person valszemely = ugykezelo.SzemelyekValasztas(ugyd);
+                        var vangyan = donteshozo.GyanusitottakLista(ugyd);
+                        donteshozo.TanuLista(ugyd);
                         
+                        if (!vangyan)
+                        {
+                            Console.WriteLine("Nincs gyanusitott az ugyhoz kotve.");
+                            break;
+                        }
                         if (ugyd.Bizonyitekok.Count == 0)
                         {
                             Console.WriteLine("Nincs bizonyíték az ügyhöz kötve.");
@@ -352,8 +359,7 @@
                         }
                         
                         List<Evidence> ugybiz = ugykezelo.UgyBizonyitekai(ugyd);
-                        
-                        donteshozo.Ertekeles(valszemely, ugybiz);
+                        donteshozo.Ertekeles(ugybiz);
                         break;
                     case 6:
                         fut = false;

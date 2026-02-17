@@ -12,14 +12,11 @@
             this.vallomas = vallomas;
             this.datum = datum;
         }
-
-        public string Vallomas { get => vallomas; set => vallomas = value; }
-        public string Datum { get => datum; set => datum = value; }
         internal Person Szemely { get => szemely; set => szemely = value; }
 
         public override string ToString()
         {
-            return $"{szemely}\n\t{vallomas} ({datum})";
+            return $"{szemely}, vallomas: {vallomas} ({datum})";
         }
     }
 }
