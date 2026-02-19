@@ -44,14 +44,14 @@
             }
             
             Log($"\n{gyanusitott.Szemely.Nev} megbízhatósági szintje: {gyanusitott.Szint}/100",  ConsoleColor.Cyan);
-            Log($"Döntés megbíhatósága: {osszPont}/10",  ConsoleColor.Cyan);
+            Log($"Döntés megbízhatósága: {osszPont}/10",  ConsoleColor.Cyan);
 
             if (osszPont >= kuszobertek)
             {
-                Log($"\nFigyelem: {gyanusitott.Szemely.Nev} elerte a kuszoberteket!",  ConsoleColor.Red);
+                Log($"\nFigyelem: {gyanusitott.Szemely.Nev} elérte a küszöbértéket!",  ConsoleColor.Red);
             }
             
-            adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Gyanusitott {gyanusitott.Szemely.Nev} elemezve."));
+            adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Gyanusított {gyanusitott.Szemely.Nev} elemezve."));
         }
 
         public bool GyanusitottakLista(Case ugy)
@@ -87,7 +87,7 @@
         private Suspect GyanValasztas()
         {
             int cmd;
-            Log("Ügy gyanusitottjai:",  ConsoleColor.Cyan);
+            Log("\nÜgy gyanusitottjai:",  ConsoleColor.Cyan);
             for (int i = 0; i < gyanlista.Count; i++)
             {
                 Console.WriteLine($"({i + 1}) {gyanlista[i]}");

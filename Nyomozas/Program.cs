@@ -118,7 +118,7 @@
                                     ugykezelo.BizonyitekHozzaadas();
                                     break;
                                 
-                                case 2:
+                                case 2: // Biz törlése
                                     Case ugybizc = ugykezelo.Ugyvalasztas();
                                     if (ugybizc.Bizonyitekok.Count == 0)
                                     {
@@ -128,7 +128,7 @@
                                     bizkezelo.Torles(ugybizc);
                                     break;
 
-                                case 3:
+                                case 3: // Listázás
                                     bizkezelo.Listazas();
                                     break;
 
@@ -142,7 +142,7 @@
                         } while (fut2);
                         break;
                     
-                    case 4:
+                    case 4: // Idővonal
                         if (adattar.Idovonal.Count == 0)
                         {
                             Log("Az idővonal üres.",   ConsoleColor.Red);
@@ -155,7 +155,7 @@
                         }
                         break;
 
-                    case 5:
+                    case 5: // Elemzés
                         if (ugykezelo.Ugyek.Count == 0)
                         {
                             Log("Nincs ügy.", ConsoleColor.Red);
@@ -171,7 +171,7 @@
                         }
                         if (!vangyan)
                         {
-                            Log("Nincs gyanusitott az ugyhoz kotve.", ConsoleColor.Red);
+                            Log("Nincs gyanusított az ügyhöz kötve.", ConsoleColor.Red);
                             break;
                         }
                         if (ugyd.Bizonyitekok.Count == 0)
@@ -188,7 +188,7 @@
                 }
             } while (fut);
 
-            Log("\nKilepes...");
+            Log("\nKilépés..."); // :(
         }
         static void Log(string text, ConsoleColor color = ConsoleColor.White)
         {

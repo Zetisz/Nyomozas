@@ -20,11 +20,12 @@
         public void Torles(Case ugy)
         {
             int cmd;
+            Console.WriteLine();
             for (int i = 0; i < ugy.Bizonyitekok.Count; i++)
             {
                 Console.WriteLine($"({i + 1}) {ugy.Bizonyitekok[i]}");
             }
-
+            Log("\nBizonyíték sorszáma:");
             do
             {
                 cmd = int.Parse(Console.ReadLine()!);
