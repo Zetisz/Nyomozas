@@ -3,16 +3,18 @@
     internal class EvidenceManager
     {
         private List<Evidence> bizonyitekok;
+        private DataStore adattar;
 
-        public EvidenceManager()
+        public EvidenceManager(DataStore adattar)
         {
-            bizonyitekok = [];
+            this.bizonyitekok = [];
+            this.adattar = adattar;
         }
 
         public void Hozzadas(Evidence bizonyitek)
         {
             bizonyitekok.Add(bizonyitek);
-            Console.WriteLine("Bizonyitek hozzaadva!");
+            Log("Bizonyíték hozzáadva!", ConsoleColor.Green);
         }
 
         public void Torles(Case ugy)
@@ -32,17 +34,19 @@
 
             if (bizonyitekok.Remove(biz))
             {
-                Console.WriteLine("Bizonyíték törölve!");
+                Log("Bizonyíték törölve!",  ConsoleColor.Green);
             }
             else
             {
-                Console.WriteLine("A bizonyitek nem talalhato!");
+                Log("A bizonyíték nem található!", ConsoleColor.Red);
             }
             ugy.Bizonyitekok.Remove(biz);
+            adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Bizonyíték törölve ({ugy.Ugyazonosito})"));
         }
 
         public void Listazas()
         {
+            Console.WriteLine();
             if (bizonyitekok.Count > 0) 
             {
                 foreach (Evidence b in bizonyitekok)
@@ -52,8 +56,14 @@
             }
             else
             {
-                Console.WriteLine("Nincs kilistazhato elem.");
+                Log("\nNincs kilistázható elem.",  ConsoleColor.Red);
             }
+        }
+        static void Log(string text, ConsoleColor color = ConsoleColor.White)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }

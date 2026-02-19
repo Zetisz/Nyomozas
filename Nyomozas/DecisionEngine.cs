@@ -26,7 +26,7 @@
                 osszPont += MegbizhatosagPont(b.Megbizhatosag);
             }
             
-            // megvaltozik tanu szerint
+            // Megváltozik tanu szerint
             if (tanulista.Count > 0)
             {
                 for (int i = 0; i <= tanulista.Count; i++)
@@ -43,16 +43,12 @@
                 osszPont /= bizonyitekok.Count;
             }
             
-            Console.WriteLine($"{gyanusitott.Szemely.Nev} megbízhatósági szintje: {gyanusitott.Szint}/100");
-            Console.WriteLine(
-                $"Döntés megbíhatósága: {osszPont}/10"
-            );
+            Log($"\n{gyanusitott.Szemely.Nev} megbízhatósági szintje: {gyanusitott.Szint}/100",  ConsoleColor.Cyan);
+            Log($"Döntés megbíhatósága: {osszPont}/10",  ConsoleColor.Cyan);
 
             if (osszPont >= kuszobertek)
             {
-                Console.WriteLine(
-                    $"Figyelem: {gyanusitott.Szemely.Nev} elerte a kuszoberteket!"
-                );
+                Log($"\nFigyelem: {gyanusitott.Szemely.Nev} elerte a kuszoberteket!",  ConsoleColor.Red);
             }
             
             adattar.Idovonal.Add(new TimelineEvent(DateTime.Now.ToString(), $"Gyanusitott {gyanusitott.Szemely.Nev} elemezve."));
@@ -61,7 +57,6 @@
         public bool GyanusitottakLista(Case ugy)
         {
             gyanlista = [];
-            
             foreach (var gy in adattar.Gyanusitottak)
             {
                 foreach (var sz in ugy.Szemelyek)
@@ -92,7 +87,7 @@
         private Suspect GyanValasztas()
         {
             int cmd;
-            Console.WriteLine("Ügy gyanusitottjai");
+            Log("Ügy gyanusitottjai:",  ConsoleColor.Cyan);
             for (int i = 0; i < gyanlista.Count; i++)
             {
                 Console.WriteLine($"({i + 1}) {gyanlista[i]}");
@@ -119,6 +114,13 @@
                 default:
                     return 1;
             }
+        }
+        
+        static void Log(string text, ConsoleColor color = ConsoleColor.White)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }
